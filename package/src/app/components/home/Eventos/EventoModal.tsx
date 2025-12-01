@@ -1,7 +1,7 @@
 // ./src/app/components/home/Evento/EventoModal.tsx
 "use client";
 import Image from "next/image";
-import { FaWhatsapp, FaTimes, FaShareAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaWhatsapp, FaTimes, FaShareAlt, FaChevronLeft, FaChevronRight, FaCrown } from 'react-icons/fa';
 import { useEffect, useRef, useState } from 'react';
 import StarFavorite from "./StarFavorite";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,6 +24,7 @@ interface Evento {
     horario: string;
     slug: string;
     whatsappLink: string;
+    listaVipLink: string;
 }
 
 interface EventoModalProps {
@@ -509,17 +510,17 @@ END:VCALENDAR`;
                                     )}
 
                                     <div className="grid grid-cols-[48px_1fr] items-center gap-4 mb-6">
-  {evento.icon && (
-    <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-xl border border-primary/20">
-      {/* forçar tamanho no StarFavorite; se o componente não aceitar className, ajuste dentro dele */}
-      <StarFavorite id={evento._id} className="w-6 h-6" />
-    </div>
-  )}
+                                        {evento.icon && (
+                                            <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-xl border border-primary/20">
+                                                {/* forçar tamanho no StarFavorite; se o componente não aceitar className, ajuste dentro dele */}
+                                                <StarFavorite id={evento._id} className="w-6 h-6" />
+                                            </div>
+                                        )}
 
-  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white leading-none">
-    {evento.title}
-  </h1>
-</div>
+                                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white leading-none">
+                                            {evento.title}
+                                        </h1>
+                                    </div>
 
 
                                     <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -563,16 +564,28 @@ END:VCALENDAR`;
                                         </div>
                                     </div>
 
-                                    {/* CTA Button */}
-                                    <div className="mt-8">
+                                    {/* CTA Button e Lista VIP */}
+                                    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {/* Botão WhatsApp (CTA principal) */}
                                         <a
                                             href={evento.whatsappLink || "https://chat.whatsapp.com/HO94jLtkcWR8TUTWiyk1WB?mode=hqrt3"}
-                                            className="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-center"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
                                             <FaWhatsapp className="w-6 h-6" />
-                                            Entrar no Grupo do WhatsApp
+                                            Grupo do evento
+                                        </a>
+
+                                        {/* Botão Lista VIP (também como link) */}
+                                        <a
+                                            href={evento.listaVipLink || "#"}
+                                            className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-yellow-400 to-yellow-300 hover:from-yellow-300 hover:to-yellow-200 text-gray-900 px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg shadow-yellow-400/50"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <FaCrown className="w-5 h-5" />
+                                            Lista VIP
                                         </a>
                                     </div>
                                 </div>

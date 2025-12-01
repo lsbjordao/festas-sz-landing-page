@@ -20,6 +20,7 @@ interface Evento {
     horario: string;
     slug: string;
     whatsappLink: string;
+    listaVipLink: string;
 }
 
 type Filtro = 'todos' | 'favoritos' | 'hoje' | 'amanha' | 'fim-de-semana' | 'proxima-semana';
