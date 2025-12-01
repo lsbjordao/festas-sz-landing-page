@@ -32,7 +32,7 @@ const Evento = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [filtroAtivo, setFiltroAtivo] = useState<Filtro>('todos');
-    
+
     const { isFavorite } = useFavorites(); // Use o hook
 
     useEffect(() => {
@@ -82,7 +82,7 @@ const Evento = () => {
     // Função para aplicar os filtros
     const aplicarFiltro = (filtro: Filtro) => {
         setFiltroAtivo(filtro);
-        
+
         const hoje = new Date();
         hoje.setHours(0, 0, 0, 0);
 
@@ -109,7 +109,7 @@ const Evento = () => {
             case 'favoritos':
                 eventosFiltrados = eventoData.filter(evento => isFavorite(evento._id));
                 break;
-            
+
             case 'hoje':
                 eventosFiltrados = eventoData.filter(evento => {
                     const dataEvento = new Date(evento.data ?? "");
@@ -117,7 +117,7 @@ const Evento = () => {
                     return dataEvento.getTime() === hoje.getTime();
                 });
                 break;
-            
+
             case 'amanha':
                 eventosFiltrados = eventoData.filter(evento => {
                     const dataEvento = new Date(evento.data ?? "");
@@ -125,7 +125,7 @@ const Evento = () => {
                     return dataEvento.getTime() === amanha.getTime();
                 });
                 break;
-            
+
             case 'fim-de-semana':
                 eventosFiltrados = eventoData.filter(evento => {
                     const dataEvento = new Date(evento.data ?? "");
@@ -133,7 +133,7 @@ const Evento = () => {
                     return dataEvento >= inicioFimDeSemana && dataEvento <= fimFimDeSemana;
                 });
                 break;
-            
+
             case 'proxima-semana':
                 eventosFiltrados = eventoData.filter(evento => {
                     const dataEvento = new Date(evento.data ?? "");
@@ -141,7 +141,7 @@ const Evento = () => {
                     return dataEvento >= inicioProximaSemana && dataEvento < fimProximaSemana;
                 });
                 break;
-            
+
             case 'todos':
             default:
                 eventosFiltrados = eventoData;
@@ -229,71 +229,65 @@ const Evento = () => {
                         {/* BLOCO DE FILTROS */}
                         <div className="flex flex-wrap justify-center gap-3 px-4">
                             {/* Todos os Eventos */}
-                            <button 
+                            <button
                                 onClick={() => aplicarFiltro('todos')}
-                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-colors ${
-                                    filtroAtivo === 'todos' 
-                                        ? 'border-primary bg-primary/5 text-primary' 
+                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-colors ${filtroAtivo === 'todos'
+                                        ? 'border-primary bg-primary/5 text-primary'
                                         : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary dark:hover:border-primary'
-                                }`}
+                                    }`}
                             >
                                 Todos
                             </button>
 
                             {/* Filtro de Favoritos */}
-                            <button 
+                            <button
                                 onClick={() => aplicarFiltro('favoritos')}
-                                className={`flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium transition-colors ${
-                                    filtroAtivo === 'favoritos' 
-                                        ? 'border-primary bg-primary/5 text-primary' 
+                                className={`flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium transition-colors ${filtroAtivo === 'favoritos'
+                                        ? 'border-primary bg-primary/5 text-primary'
                                         : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary dark:hover:border-primary'
-                                }`}
+                                    }`}
                             >
                                 <Star size={16} className="fill-yellow-400 stroke-yellow-400" />
                                 Favoritos
                             </button>
 
                             {/* Filtros por data */}
-                            <button 
+                            <button
                                 onClick={() => aplicarFiltro('hoje')}
-                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-colors ${
-                                    filtroAtivo === 'hoje' 
-                                        ? 'border-primary bg-primary/5 text-primary' 
+                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-colors ${filtroAtivo === 'hoje'
+                                        ? 'border-primary bg-primary/5 text-primary'
                                         : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary dark:hover:border-primary'
-                                }`}
+                                    }`}
                             >
                                 🎉 Hoje
                             </button>
 
-                            <button 
+                            <button
                                 onClick={() => aplicarFiltro('amanha')}
-                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-colors ${
-                                    filtroAtivo === 'amanha' 
-                                        ? 'border-primary bg-primary/5 text-primary' 
+                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-colors ${filtroAtivo === 'amanha'
+                                        ? 'border-primary bg-primary/5 text-primary'
                                         : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary dark:hover:border-primary'
-                                }`}
+                                    }`}
                             >
                                 📅 Amanhã
                             </button>
 
-                            <button 
+                            <button
                                 onClick={() => aplicarFiltro('fim-de-semana')}
-                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-colors ${
-                                    filtroAtivo === 'fim-de-semana' 
-                                        ? 'border-primary bg-primary/5 text-primary' 
+                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-colors ${filtroAtivo === 'fim-de-semana'
+                                        ? 'border-primary bg-primary/5 text-primary'
                                         : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary dark:hover:border-primary'
-                                }`}
+                                    }`}
                             >
                                 🎊 Este FDS
                             </button>
 
-                            <button 
+                            <button
                                 onClick={() => aplicarFiltro('proxima-semana')}
-                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-colors ${
-                                    filtroAtivo === 'proxima-semana' 
-                                        ? 'border-primary bg-primary/5 text-primary' 
+                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-colors ${filtroAtivo === 'proxima-semana'
+                                        ? 'border-primary bg-primary/5 text-primary'
                                         : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary dark:hover:border-primary'
-                                }`}
+                                    }`}
                             >
                                 🔥 Próxima Semana
                             </button>
@@ -331,18 +325,18 @@ const Evento = () => {
 
                                                 <div className="p-6">
                                                     {/* Estrela + Data + Título (lado a lado) */}
-                                                    <div className="flex items-start gap-3">
+                                                    <div className="grid grid-cols-[32px_1fr] items-center gap-3">
                                                         {/* Estrela */}
                                                         <button
                                                             onClick={handleStarClick}
-                                                            className="p-1 rounded-xl"
+                                                            className="w-8 h-8 flex items-center justify-center rounded-xl"
                                                         >
-                                                            <StarFavorite id={evento._id} />
+                                                            <StarFavorite id={evento._id} className="w-5 h-5" />
                                                         </button>
 
                                                         {/* Data + Título */}
-                                                        <div className="flex flex-col">
-                                                            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                                        <div className="flex flex-col leading-none">
+                                                            <p className="text-gray-600 dark:text-gray-300">
                                                                 {new Date(evento.data ?? "").toLocaleDateString("pt-BR")}
                                                             </p>
 
@@ -351,6 +345,7 @@ const Evento = () => {
                                                             </h3>
                                                         </div>
                                                     </div>
+
 
                                                     {/* Descrição embaixo */}
                                                     <p className="text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-2 mt-2">

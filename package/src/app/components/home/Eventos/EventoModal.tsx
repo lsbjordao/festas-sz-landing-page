@@ -148,7 +148,7 @@ const EventoModal = ({ evento, eventos = [], onClose, onNavigate }: EventoModalP
 
         try {
             const data = new Date(dataString);
-            
+
             if (isNaN(data.getTime())) {
                 console.warn('Data inválida:', dataString);
                 return '';
@@ -163,7 +163,7 @@ const EventoModal = ({ evento, eventos = [], onClose, onNavigate }: EventoModalP
 
             const dataFormatada = data.toLocaleDateString('pt-BR', options);
             return dataFormatada.charAt(0).toUpperCase() + dataFormatada.slice(1);
-            
+
         } catch (error) {
             console.error('Erro ao formatar data:', error, 'Data:', dataString);
             return '';
@@ -175,7 +175,7 @@ const EventoModal = ({ evento, eventos = [], onClose, onNavigate }: EventoModalP
         if (!currentEvento?.data) {
             return {
                 google: '#',
-                outlook: '#', 
+                outlook: '#',
                 yahoo: '#',
                 ics: '#'
             };
@@ -183,7 +183,7 @@ const EventoModal = ({ evento, eventos = [], onClose, onNavigate }: EventoModalP
 
         try {
             const eventDate = new Date(currentEvento.data);
-            
+
             if (isNaN(eventDate.getTime())) {
                 return {
                     google: '#',
@@ -274,7 +274,7 @@ END:VCALENDAR`;
             console.warn('Não foi possível baixar o arquivo ICS');
             return;
         }
-        
+
         const link = document.createElement('a');
         link.href = links.ics;
         link.download = `${currentEvento?.title || 'evento'}.ics`;
@@ -482,7 +482,7 @@ END:VCALENDAR`;
                         spaceBetween={30}
                         slidesPerView={1}
                         navigation={false}
-                        pagination={{ 
+                        pagination={{
                             clickable: true,
                             dynamicBullets: true
                         }}
@@ -508,28 +508,29 @@ END:VCALENDAR`;
                                         </div>
                                     )}
 
-                                    <div className="flex items-start gap-4 mb-6">
-                                        {/* Ícone do evento */}
-                                        {evento.icon && (
-                                            <div className="bg-primary/10 p-3 rounded-xl border border-primary/20 flex-shrink-0">
-                                                <StarFavorite id={evento._id} />
-                                            </div>
-                                        )}
-                                        <div>
-                                            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                                                {evento.title}
-                                            </h1>
-                                            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                                                {evento.descp}
-                                            </p>
-                                        </div>
-                                    </div>
+                                    <div className="grid grid-cols-[48px_1fr] items-center gap-4 mb-6">
+  {evento.icon && (
+    <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-xl border border-primary/20">
+      {/* forçar tamanho no StarFavorite; se o componente não aceitar className, ajuste dentro dele */}
+      <StarFavorite id={evento._id} className="w-6 h-6" />
+    </div>
+  )}
+
+  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white leading-none">
+    {evento.title}
+  </h1>
+</div>
+
+
+                                    <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                                        {evento.descp}
+                                    </p>
 
                                     {/* Detalhes do evento */}
                                     <div className="mt-8 p-6 bg-gradient-to-r from-gray-50 to-primary/5 dark:from-gray-700 dark:to-primary/10 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                                        {/* <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
                                             Detalhes do Evento
-                                        </h3>
+                                        </h3> */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-3">
                                                 <div>
